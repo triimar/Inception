@@ -1,11 +1,39 @@
 version: '3'
-services:
 
+networks:
+ inception: 
+   name: inception
+
+services:
   nginx:
     container_name: nginx
+    image: nginx
+    ports:
+      - "80:80"
+    networks: 
+      - inception
+    restart: always  
 
   wordpress:
     container_name: wordpress
+    image: wordpress
+    networks: 
+      - inception
+    depends_on:
+      - mariadb
+    environment:
+      WORDPRESS_DB_HOST: mysql
+      WORDPRESS_DB_USER: triin
+      WORDPRESS_DB_PASSWORD: "coffee"
+      WORDPRESS_DB_NAME: wordpress
+    restart: always
 
   mariadb:
     container_name: mariadb
+    networks: 
+      - inception
+    volumes:
+      - ./mariadb_volumes:/var/lib/mariadb
+    restart: always
+
+
