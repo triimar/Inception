@@ -8,6 +8,7 @@ clean:
 #fclean removes containers and network , should also remove volumes!!!
 fclean:
 	cd ./srcs && docker-compose down
+	rm -rf /Users/tmarts/data/db_volume /Users/tmarts/data/wp_volume
 
 re: fclean all
 
