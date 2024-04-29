@@ -1,10 +1,5 @@
 #!/bin/bash
 
-# MYSQL_DATABASE=wordpress
-# MYSQL_USER=wordpressuser
-# MYSQL_ROOT_PASSWORD=parool
-# MYSQL_PASSWORD=wordpresspassword
-
 service mariadb start 2>/dev/null
 if ! mysql -u root -p"$MYSQL_ROOT_PASSWORD" -e "USE $MYSQL_DATABASE" 2>/dev/null; then
     mysql -u root -p"$MYSQL_ROOT_PASSWORD" -e \
