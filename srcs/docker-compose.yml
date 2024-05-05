@@ -1,16 +1,16 @@
 #directives
-version: ' 1.29.2'
+#version: '3' << obsolete in newer versions
 
 networks:
   inception: 
     name: inception_network
 
 services:
+
   nginx:
     container_name: nginx
     build:
       context: ./requirements/nginx
-    image: nginx_tm
     depends_on:
       - wordpress
     ports:
@@ -25,19 +25,18 @@ services:
 
   wordpress:
     container_name: wordpress
-    image: wordpress
+    build:
+      context: ./requirements/wordpress
     depends_on:
       - mariadb
     env_file:
       - .env
-    environment:
-      WORDPRESS_DB_PASSWORD_FILE: /run/secrets/db_password
+    # environment:
+    #   WORDPRESS_DB_PASSWORD_FILE: /run/secrets/db_password
       # MYSQL_PASSWORD: /run/secrets/db_password
-    expose:
-      - 9000
-    secrets:
-       - db_root_password
-       - db_password
+    # secrets:
+    #    - db_root_password
+    #    - db_password
     volumes:
       - wordpress_volume:/var/www/html
     networks: 
@@ -48,15 +47,19 @@ services:
     container_name: mariadb
     build:
       context: ./requirements/mariadb
-    image: mariadb
-    env_file:
-      - .env
+    # env_file:
+    #   - .env
     environment:
-      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
-      MYSQL_PASSWORD_FILE: /run/secrets/db_password
-    secrets:
-       - db_root_password
-       - db_password
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    # environment:
+    #   MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
+    #   MYSQL_PASSWORD_FILE: /run/secrets/db_password
+    # secrets:
+    #    - db_root_password
+    #    - db_password
     # expose:
     #   - 3306
     volumes:
@@ -68,21 +71,24 @@ services:
 volumes:
   wordpress_volume:
     name: wordpress_volume
-    driver: local
     driver_opts:
       device: /Users/tmarts/data/wordpress_volume
       o: bind
       type: none
   database_volume:
     name: database_volume
-    driver: local
     driver_opts:
       device: /Users/tmarts/data/database_volume
       o: bind
       type: none
 
-secrets:
-   db_password:
-     file: ../secrets/db_password.txt
-   db_root_password:
-     file: ../secrets/db_root_password.txt
+  # secrets:
+  #   - source: db_root_pw
+  #     target: /run/secrets/root_pw
+  #   - source: db_user_pw
+  #     target: /run/...
+# secrets:
+#    db_password:
+#      file: ../secrets/db_password.txt
+#    db_root_password:
+#      file: ../secrets/db_root_password.txt
