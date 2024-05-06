@@ -18,9 +18,6 @@ RUN mkdir -p /var/lib/mysql && \
 #set permissions for executable
 RUN chmod +x /usr/local/bin/start_mariadb.sh
 
-# HEALTHCHECK --start-period=5m \
-#   CMD mariadb -e 'SELECT @@datadir;' || exit 1
-
 EXPOSE 3306
 
 STOPSIGNAL SIGQUIT

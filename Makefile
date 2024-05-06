@@ -12,7 +12,10 @@ fclean:
 
 vclean:
 	cd ./srcs && docker-compose down --volumes
-re: fclean all
+
+re: fclean
+	cd ./srcs && docker-compose up --build -d
+
 
 .PHONY: all re fclean clean
 

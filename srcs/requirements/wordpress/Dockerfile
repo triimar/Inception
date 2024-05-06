@@ -2,7 +2,7 @@ FROM debian:bullseye
 
 RUN apt update -y \
     && apt upgrade -y \
-    && apt install -y wget php7.4 php-fpm php-mysql mariadb-client
+    && apt install -y wget php7.4 php-fpm php-mysql
 
 RUN id www-data || useradd -ms /bin/bash www-data
 
@@ -16,19 +16,17 @@ COPY ./tools/wp_setup.sh /usr/local/bin/
 
 RUN	chmod +x /usr/local/bin/wp_setup.sh
 RUN mkdir /run/php
+
 EXPOSE 9000
 
 STOPSIGNAL SIGQUIT
 
 WORKDIR /var/www/html
-#needs to be /var/www so that wp can create cache
-# RUN chown -R www-data:www-data /var/www/ 
-#-is there this user already??
+#here because there is no /var/www before, needs to be /var/www so that wp can create cache
+RUN chown -R www-data:www-data /var/www/ \
+	&& chown -R www-data:www-data /var/log/ \
+	&& chown -R www-data:www-data /run/php/
 
-# USER www-data
-
-# RUN wp core download --path=/var/www/html --locale=en_US
+USER www-data
 
 ENTRYPOINT [ "/usr/local/bin/wp_setup.sh" ]
-# CMD tail -f
-
