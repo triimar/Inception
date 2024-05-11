@@ -14,8 +14,8 @@ RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.ph
 COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
 COPY ./tools/wp_setup.sh /usr/local/bin/
 
-RUN	chmod +x /usr/local/bin/wp_setup.sh
-RUN mkdir /run/php
+RUN	chmod +x /usr/local/bin/wp_setup.sh && \
+	mkdir -p /run/php
 
 EXPOSE 9000
 
@@ -29,4 +29,4 @@ RUN chown -R www-data:www-data /var/www/ \
 
 USER www-data
 
-ENTRYPOINT [ "/usr/local/bin/wp_setup.sh" ]
+ENTRYPOINT [ "wp_setup.sh" ]

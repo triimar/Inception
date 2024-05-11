@@ -3,7 +3,7 @@ FROM debian:bullseye
 #download necessary packages
 RUN apt update -y \
     && apt upgrade -y \
-    && apt install mariadb-server -y
+    && apt install -y mariadb-server
 
 #copy config and enteypoint
 COPY ./conf/mariadb.cnf /etc/mysql/mariadb.conf.d/
