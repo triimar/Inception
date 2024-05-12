@@ -5,7 +5,7 @@ RUN apt update -y \
     && apt upgrade -y \
     && apt install -y mariadb-server
 
-#copy config and enteypoint
+#copy config and entr#ypoint
 COPY ./conf/mariadb.cnf /etc/mysql/mariadb.conf.d/
 COPY ./tools/start_mariadb.sh /usr/local/bin/
 
@@ -22,4 +22,5 @@ EXPOSE 3306
 
 STOPSIGNAL SIGQUIT
 
-ENTRYPOINT ["start_mariadb.sh"]
+ENTRYPOINT ["/usr/local/bin/start_mariadb.sh"]
+# CMD ["tail", "-f"]

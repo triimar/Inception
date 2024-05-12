@@ -28,7 +28,8 @@ services:
     build:
       context: ./requirements/wordpress
     depends_on:
-      - mariadb
+      mariadb:
+        condition: service_healthy
     env_file:
       - .env
     environment:
@@ -57,6 +58,12 @@ services:
     secrets:
        - db_root_password
        - db_password
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -P 3306 -uroot -p$$(cat /run/secrets/db_root_password)"]
+      interval: 30m
+      timeout: 10s
+      retries: 3
+      start_period: 10s
     volumes:
       - database_volume:/var/lib/mysql
     networks: 
@@ -65,17 +72,15 @@ services:
 
 volumes:
   wordpress_volume:
-    name: wordpress_volume
     driver_opts:
-      device: /Users/tmarts/data/wordpress_volume
       o: bind
       type: none
+      device: /Users/tmarts/Documents/Projects/Inception/wordpress_volume
   database_volume:
-    name: database_volume
     driver_opts:
-      device: /Users/tmarts/data/database_volume
       o: bind
       type: none
+      device: /Users/tmarts/Documents/Projects/Inception/database_volume
 
 secrets:
   db_password:
