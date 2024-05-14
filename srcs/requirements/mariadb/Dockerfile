@@ -18,6 +18,7 @@ RUN mkdir -p /var/lib/mysql && \
 #set permissions for executable
 RUN chmod +x /usr/local/bin/start_mariadb.sh
 
+
 EXPOSE 3306
 
 STOPSIGNAL SIGQUIT

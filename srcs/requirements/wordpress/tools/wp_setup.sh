@@ -35,5 +35,5 @@ if ! wp user get $WP_USER >/dev/null 2>&1; then
 fi
 
 echo "Starting php-fpm ..."
-php-fpm7.4 -F
+exec php-fpm7.4 -F
 # -F flag means foreground

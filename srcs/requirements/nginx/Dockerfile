@@ -24,6 +24,7 @@ COPY ./conf/nginx.conf etc/nginx/nginx.conf
 EXPOSE 443
 
 #Ensures that the service in container gracefully shuts down when the container is stopped 
-STOPSIGNAL SIGQUIT
+# STOPSIGNAL SIGQUIT
 
-CMD ["nginx", "-g", "daemon off;"]
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
+#daemon off insures that the process stays in the foreground

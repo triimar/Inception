@@ -1,22 +1,22 @@
-all:
-	mkdir -p /Users/tmarts/data/database_volume /Users/tmarts/data/wordpress_volume
-	cd ./srcs && docker-compose up -d
+build:
+	cd ./srcs && docker compose build --no-cache
 
-#clean stops containers and network
-clean:
+up:
+	# mkdir -p /Users/tmarts/data/database_volume /Users/tmarts/data/wordpress_volume
+	cd ./srcs && docker compose up -d
+
+stop:
 	cd ./srcs && docker-compose stop 
 
-#fclean removes containers and network , should also remove volumes!!!
-fclean:
+down:
 	cd ./srcs && docker-compose down
 
-vclean:
-	cd ./srcs && docker-compose down --volumes
+clean:
+	cd ./srcs && docker compose down --rmi all --volumes
 
-re: fclean
-	cd ./srcs && docker-compose up --build -d
+fclean: clean
+	docker system prune --all --force
 
-
-.PHONY: all re fclean clean
+.PHONY: build up stop down
 
 #docker stop $(docker ps -qa); docker rm $(docker ps -qa); docker rmi -f $(docker images -qa); docker volume rm $(docker volume ls -q); docker network rm $(docker network ls -q) 2>/dev/null

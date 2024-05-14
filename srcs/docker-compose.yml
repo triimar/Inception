@@ -1,5 +1,4 @@
 #directives
-#version: '3' << obsolete in newer versions
 
 networks:
   inception: 
