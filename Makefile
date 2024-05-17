@@ -2,14 +2,14 @@ build:
 	cd ./srcs && docker compose build --no-cache
 
 up:
-	# mkdir -p /Users/tmarts/data/database_volume /Users/tmarts/data/wordpress_volume
+	mkdir -p /home/tmarts/data/database_volume /home/tmarts/data/wordpress_volume
 	cd ./srcs && docker compose up -d
 
 stop:
-	cd ./srcs && docker-compose stop 
+	cd ./srcs && docker compose stop 
 
 down:
-	cd ./srcs && docker-compose down
+	cd ./srcs && docker compose down
 
 clean:
 	cd ./srcs && docker compose down --rmi all --volumes

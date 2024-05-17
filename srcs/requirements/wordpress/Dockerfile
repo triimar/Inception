@@ -1,8 +1,16 @@
 FROM debian:bullseye
 
+ENV DEBIAN_FRONTEND=noninteractive
+
 RUN apt update -y \
     && apt upgrade -y \
     && apt install -y wget php7.4 php-fpm php-mysql
+
+#cleaning up apt-get cache to reduce image size
+RUN apt clean && rm -rf /var/lib/apt/lists/*
+
+#setting back to default value
+ENV DEBIAN_FRONTEND=
 
 RUN id www-data || useradd -ms /bin/bash www-data
 

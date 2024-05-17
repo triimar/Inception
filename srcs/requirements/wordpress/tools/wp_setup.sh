@@ -20,7 +20,7 @@ fi
 
 if ! wp core is-installed >/dev/null 2>&1; then
 	echo "Installing wordpress ..."
-	wp core install --url=localhost \
+	wp core install --url=$DOMAIN_NAME \
 					--title=Inception \
 					--admin_user=$WP_ADMIN_USER \
 					--prompt=admin_password < /run/secrets/wp_admin_pass \

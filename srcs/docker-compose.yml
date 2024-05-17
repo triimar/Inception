@@ -68,12 +68,12 @@ volumes:
     driver_opts:
       o: bind
       type: none
-      device: /Users/tmarts/Documents/Projects/Inception/wordpress_volume
+      device: /home/tmarts/data/wordpress_volume
   database_volume:
     driver_opts:
       o: bind
       type: none
-      device: /Users/tmarts/Documents/Projects/Inception/database_volume
+      device: /home/tmarts/data/database_volume
 
 secrets:
   db_pass:

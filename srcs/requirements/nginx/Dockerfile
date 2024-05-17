@@ -1,11 +1,19 @@
 FROM debian:bullseye
 
+ENV DEBIAN_FRONTEND=noninteractive
+
 #installing nginx and openssl 
 RUN apt update -y \
 	&& apt upgrade -y \
 	&& apt install nginx -y \
 	&& mkdir -p /etc/nginx/ssl \
 	&& apt install openssl -y
+
+#cleaning up apt-get cache to reduce image size
+RUN apt clean && rm -rf /var/lib/apt/lists/*
+
+#setting back to default value
+ENV DEBIAN_FRONTEND=
 
 #creating log directories
 RUN mkdir -p /var/log/nginx && \
