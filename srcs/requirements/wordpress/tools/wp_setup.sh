@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# <<Script is run as the user www-data>>
-
 if ! wp core is-installed --allow-root >/dev/null 2>&1; then
 	wp core download --path=/var/www/html/ --locale=en_US --allow-root \
 					|| { echo "Failed to download WordPress" >&2; exit 1; }				
