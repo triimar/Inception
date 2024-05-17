@@ -27,14 +27,13 @@ RUN	chmod +x /usr/local/bin/wp_setup.sh && \
 
 EXPOSE 9000
 
-# STOPSIGNAL SIGQUIT
+STOPSIGNAL SIGQUIT
 
 WORKDIR /var/www/html
-#here because there is no /var/www before, needs to be /var/www so that wp can create cache
+
 RUN chown -R www-data:www-data /var/www/ \
+	&& chown -R www-data:www-data /var/www/html/ \
 	&& chown -R www-data:www-data /var/log/ \
 	&& chown -R www-data:www-data /run/php/
-
-USER www-data
 
 ENTRYPOINT ["wp_setup.sh"]
