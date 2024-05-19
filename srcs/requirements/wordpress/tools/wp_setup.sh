@@ -26,7 +26,7 @@ if ! wp core is-installed --allow-root >/dev/null 2>&1; then
 					--quiet --allow-root || { echo "Failed to install WordPress" >&2; exit 1; }				
 fi
 
-if ! wp user get $WP_USER >/dev/null 2>&1; then
+if ! wp user get $WP_USER --allow-root >/dev/null 2>&1; then
 	echo "Creating a new user ..."
     wp user create  $WP_USER $WP_USER_EMAIL --role=author --prompt=user_pass < /run/secrets/wp_user_pass \
 					--quiet --allow-root || { echo "Failed to create user" >&2; exit 1; }
