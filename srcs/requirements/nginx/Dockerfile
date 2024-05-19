@@ -34,5 +34,5 @@ EXPOSE 443
 #Ensures that the service in container gracefully shuts down when the container is stopped 
 STOPSIGNAL SIGQUIT
 
-ENTRYPOINT ["nginx", "-g", "daemon off;"]
 #daemon off insures that the process stays in the foregroun
+ENTRYPOINT ["nginx", "-g", "daemon off;"]

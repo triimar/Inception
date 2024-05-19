@@ -1,5 +1,4 @@
 #directives
-
 networks:
   inception: 
     name: inception_network
@@ -62,11 +61,13 @@ services:
 
 volumes:
   wordpress_volume:
+    driver: local
     driver_opts:
       o: bind
       type: none
       device: /home/tmarts/data/wordpress_volume
   database_volume:
+    driver: local
     driver_opts:
       o: bind
       type: none

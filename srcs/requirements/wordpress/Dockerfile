@@ -12,8 +12,6 @@ RUN apt clean && rm -rf /var/lib/apt/lists/*
 #setting back to default value
 ENV DEBIAN_FRONTEND=
 
-RUN id www-data || useradd -ms /bin/bash www-data
-
 #download WP-CLI - a command line interface for wordpress download and setup - and give permissions
 RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -O /usr/local/bin/wp \
 	&& chmod +x /usr/local/bin/wp
