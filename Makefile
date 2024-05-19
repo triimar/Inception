@@ -1,5 +1,5 @@
 build:
-	cd ./srcs && docker compose build --no-cache
+	cd ./srcs && docker compose build
 
 up:
 	mkdir -p /home/tmarts/data/database_volume /home/tmarts/data/wordpress_volume
