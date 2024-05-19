@@ -13,6 +13,6 @@ if [ ! -d "/var/lib/mysql/wordpress" ]; then
 	mysql -u root -p"$(cat /run/secrets/db_root_pass)" -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '$(cat /run/secrets/db_root_pass)';"
 	mysql -u root -p"$(cat /run/secrets/db_root_pass)" -e "FLUSH PRIVILEGES;"
 	mysqladmin -u root -p"$(cat /run/secrets/db_root_pass)" shutdown 
-else
-	exec mysqld --user=mysql
 fi
+
+exec mysqld --user=mysql

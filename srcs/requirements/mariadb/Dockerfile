@@ -3,9 +3,8 @@ FROM debian:bullseye
 ENV DEBIAN_FRONTEND=noninteractive
 
 #download necessary packages
-RUN apt update -y \
-    && apt upgrade -y \
-    && apt install -y mariadb-server
+RUN apt update -y && apt upgrade -y && \
+    apt install -y mariadb-server
 
 #cleaning up apt-get cache to reduce image size
 RUN apt clean && rm -rf /var/lib/apt/lists/*
